@@ -49,33 +49,38 @@ public class Main {
             boolean next = false;
             while(!next) {
 
-                dir = rand.nextInt(1, 5);
-
-                switch (dir) {
-                    case 1: {
-                        startposX = anterior(startposX, TAMANHO);
-                        c1++;
-                        break;
-                    }
-                    case 2: {
-                        startposY = proximo(startposY, TAMANHO);
-                        c2++;
-                        break;
-                    }
-                    case 3: {
-                        startposX = proximo(startposX, TAMANHO);
-                        c3++;
-                        break;
-                    }
-                    case 4: {
-                        startposY = anterior(startposY, TAMANHO);
-                        c4++;
-                        break;
-                    }
+                while (startposX < 0 || startposX >= TAMANHO || startposY < 0 || startposY >= TAMANHO){
+                    startposX = rand.nextInt(0,TAMANHO-1);
+                    startposY = rand.nextInt(0,TAMANHO-1);
                 }
 
                 imagem[startposX][startposY] -= VALORDIMINUIR;
                 next = true;
+
+                dir = rand.nextInt(1, 5);
+
+                switch (dir) {
+                    case 1: {
+                        startposX -= (byte) 1;
+                        c1++;
+                        break;
+                    }
+                    case 2: {
+                        startposY += (byte) 1;
+                        c2++;
+                        break;
+                    }
+                    case 3: {
+                        startposX += (byte) 1;
+                        c3++;
+                        break;
+                    }
+                    case 4: {
+                        startposY -= (byte) 1;
+                        c4++;
+                        break;
+                    }
+                }
 
             }
         }
@@ -84,7 +89,7 @@ public class Main {
         int count = 0;
         for (int x = 0; x < TAMANHO; x++) {
             for (int y = 0; y < TAMANHO; y++) {
-                if(imagem[x][y] < 255){
+                if(imagem[x][y] < VALORINICIAL){
                     count++;
                 }
             }
@@ -115,14 +120,6 @@ public class Main {
         Image img = bf;
         ImagePlus imagePlus = new ImagePlus("imagem", img);
         imagePlus.show();
-    }
-
-    public static int proximo(int p, int TAMANHO){
-        return (p + 1) < TAMANHO ? (p + 1) : 0;
-    }
-
-    public static int anterior(int a, int TAMANHO){
-        return (a - 1) >= 0 ? (a - 1) : TAMANHO-1;
     }
 
 }
