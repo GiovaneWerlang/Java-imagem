@@ -11,11 +11,9 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        //tamanho
         final int TAMANHO = 600;
         final byte VALORINICIAL = (byte) 250;
         final byte VALORDIMINUIR = (byte) 10;
-
 
         //criar array 2d de bytes
         byte[][] imagem = new byte[TAMANHO][TAMANHO];
@@ -35,16 +33,12 @@ public class Main {
         int startposY = rand.nextInt(0,TAMANHO-1);
 
         long start = System.currentTimeMillis();
-        int c1 = 0;
-        int c2 = 0;
-        int c3 = 0;
-        int c4 = 0;
 
         int dir = 0;
 
         System.out.println("inicio: " + start);
-        System.out.println("agora: " + System.currentTimeMillis());
-        while((System.currentTimeMillis() - start) < 1000L){
+        //execução baseada em tempo
+        while((System.currentTimeMillis() - start) < 20L){
 
             boolean next = false;
             while(!next) {
@@ -57,31 +51,46 @@ public class Main {
                 imagem[startposX][startposY] -= VALORDIMINUIR;
                 next = true;
 
-                dir = rand.nextInt(1, 5);
+                dir = rand.nextInt(1, 9);
 
                 switch (dir) {
                     case 1: {
                         startposX -= (byte) 1;
-                        c1++;
                         break;
                     }
                     case 2: {
                         startposY += (byte) 1;
-                        c2++;
                         break;
                     }
                     case 3: {
                         startposX += (byte) 1;
-                        c3++;
                         break;
                     }
                     case 4: {
                         startposY -= (byte) 1;
-                        c4++;
+                        break;
+                    }
+                    case 5: {
+                        startposX -= (byte) 1;
+                        startposY -= (byte) 1;
+                        break;
+                    }
+                    case 6: {
+                        startposX += (byte) 1;
+                        startposY += (byte) 1;
+                        break;
+                    }
+                    case 7: {
+                        startposX -= (byte) 1;
+                        startposY += (byte) 1;
+                        break;
+                    }
+                    case 8: {
+                        startposX += (byte) 1;
+                        startposY -= (byte) 1;
                         break;
                     }
                 }
-
             }
         }
 
@@ -96,7 +105,6 @@ public class Main {
         }
         System.out.println("total gerado: " + count);
         System.out.println("tempo: " + (System.currentTimeMillis() - start));
-        System.out.println("1: " + c1 + ", 2: " + c2 + ", 3: " + c3 + ", 4: " + c4);
 
         //gerar buffer
         int width = imagem[0].length;
